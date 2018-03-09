@@ -1,0 +1,71 @@
+---
+# tasks file for openldap
+- name: "check if slapd exists"
+  stat:
+    path: '/etc/default/slapd'
+  register: slapd_exists
+  changed_when: false
+  tags:
+    - openldap
+    - check
+
+- name: "configure admin password"
+  debconf:
+    name: 'slapd'
+    question: 'slapd/password1'
+    vtype: 'password'
+    value: '{{ openldap_password }}'
+  when: not slapd_exists.stat.exists
+  tags:
+    - openldap
+    - debconf
+    - password
+
+- name: "confirm admin password"
+  debconf:
+    name: 'slapd'
+    question: 'slapd/password2'
+    vtype: 'password'
+    value: '{{ openldap_password }}'
+  when: not slapd_exists.stat.exists
+  tags:
+    - openldap
+    - debconf
+    - password
+
+- name: "set organization name"
+  debconf:
+    name: 'slapd'
+    question: 'shared/organization'
+    vtype: 'string'
+    value: '{{ openldap_organization }}'
+  when: not slapd_exists.stat.exists
+  tags:
+    - openldap
+    - debconf
+    - organization
+
+- name: "set domain name"
+  debconf:
+    name: 'slapd'
+    question: 'slapd/domain'
+    vtype: 'string'
+    value: '{{ openldap_domain }}'
+  when: not slapd_exists.stat.exists
+  tags:
+    - openldap
+    - debconf
+    - organization
+
+- name: "packages"
+  package:
+    name: '{{ item }}'
+  with_items:
+    - '{{ openldap_packages }}'
+  tags:
+    - openldap
+    - packages
+
+# - name: "listening interfaces and ports"
+# - name: "create default organization units"
+...

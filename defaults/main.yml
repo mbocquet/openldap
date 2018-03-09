@@ -1,0 +1,31 @@
+---
+# defaults file for openldap
+openldap_packages:
+  - slapd
+  - ldap-utils
+
+# By default, top level organization and domain components are guessed from DNS
+# domain ! If these values are unset, org, domain and rootdn will be
+# yourdomain.org and cn=admin,dc=yourdomain,dc=org
+# openldap_organization: 'example.org'
+# openldap_domain: 'example.org'
+# openldap_rootdn: 'cn=admin,dc=example,dc=org'
+
+# Yes, this should be moved to Ansible Vault
+openldap_password: 'passw0rd'
+
+# Initial Organization Units to create
+# openldap_ou:
+#   - name: 'group'
+#     objectclass:
+#       - organizationalunit
+#       - top
+#   - name: 'people'
+#     objectclass:
+#       - organizationalunit
+#       - top
+#   - name: 'bot'
+#     objectclass:
+#       - organizationalunit
+#       - top
+...
