@@ -39,7 +39,9 @@
     question: 'shared/organization'
     vtype: 'string'
     value: '{{ openldap_organization }}'
-  when: not slapd_exists.stat.exists
+  when:
+    - not slapd_exists.stat.exists
+    - openldap_organization is defined
   tags:
     - openldap
     - debconf
@@ -51,7 +53,9 @@
     question: 'slapd/domain'
     vtype: 'string'
     value: '{{ openldap_domain }}'
-  when: not slapd_exists.stat.exists
+  when:
+    - not slapd_exists.stat.exists
+    - openldap_organization is defined
   tags:
     - openldap
     - debconf
