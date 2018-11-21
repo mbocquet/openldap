@@ -63,13 +63,21 @@
 
 - name: "packages"
   package:
-    name: '{{ item }}'
-  with_items:
-    - '{{ openldap_packages }}'
+    name: '{{ openldap_packages }}'
   tags:
     - openldap
     - packages
 
-# - name: "listening interfaces and ports"
+- name: "default configuration"
+  template:
+    src: 'etc_default_slapd.j2'
+    dest: '/etc/default/slapd'
+  notify:
+    - slapd restart
+  tags:
+    - openldap
+    - defaults
+
+# try to configure clients without certificates checking
 # - name: "create default organization units"
 ...

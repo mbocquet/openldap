@@ -14,6 +14,10 @@ openldap_packages:
 # Yes, this should be moved to Ansible Vault
 openldap_password: 'passw0rd'
 
+# openldap_uris: 'ldap://127.0.0.1/ ldaps:/// ldapi:///'
+# the previous one is of course more secure than the default one following line
+openldap_uris: 'ldap:/// ldapi:///'
+
 # Initial Organization Units to create
 # openldap_ou:
 #   - name: 'group'

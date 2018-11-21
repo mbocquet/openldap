@@ -1,2 +1,10 @@
 ---
 # handlers file for openldap
+- name: "slapd restart"
+  systemd:
+    name: 'slapd'
+    state: restarted
+  tags:
+    - openldap
+    - service
+...
