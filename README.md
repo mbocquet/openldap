@@ -16,7 +16,7 @@ None.
 
 ## Install this roles as submodule of an existing GIT repository
 
-`git submodule add https://github.com/mbocquet/openldap.git roles/openldap`
+`git submodule add https://git.sekoya.org/mb/openldap.git roles/openldap`
 
 ## Example Playbook
 
