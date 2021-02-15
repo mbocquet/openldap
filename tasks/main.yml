@@ -64,7 +64,6 @@
 - name: "packages"
   package:
     name: '{{ openldap_packages }}'
-    force_apt_get: yes
   tags:
     - openldap
     - packages
