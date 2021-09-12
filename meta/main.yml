@@ -11,15 +11,12 @@ galaxy_info:
   platforms:
   - name: Debian
     versions:
-    #- all
+    - bookworm
+    - bullseye
     - buster
-    #- etch
     - jessie
-    #- lenny
     - sid
-    #- squeeze
     - stretch
-    #- wheezy
 
   galaxy_tags:
     - ldap
