@@ -68,10 +68,18 @@
     - openldap
     - packages
 
+- name: service_facts
+  service_facts:
+  tags:
+    - openldap
+    - facts
+
 - name: "default configuration"
   template:
     src: 'etc_default_slapd.j2'
     dest: '/etc/default/slapd'
+    mode: 0644
+  when: "'slapd.service' in services"
   notify:
     - slapd restart
   tags:
@@ -80,4 +88,3 @@
 
 # try to configure clients without certificates checking
 # - name: "create default organization units"
-...
