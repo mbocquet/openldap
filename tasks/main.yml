@@ -1,7 +1,7 @@
 ---
 # tasks file for openldap
 - name: "check if slapd exists"
-  stat:
+  ansible.builtin.stat:
     path: '/etc/default/slapd'
   register: slapd_exists
   changed_when: false
@@ -10,7 +10,7 @@
     - check
 
 - name: "configure admin password"
-  debconf:
+  ansible.builtin.debconf:
     name: 'slapd'
     question: 'slapd/password1'
     vtype: 'password'
@@ -22,7 +22,7 @@
     - password
 
 - name: "confirm admin password"
-  debconf:
+  ansible.builtin.debconf:
     name: 'slapd'
     question: 'slapd/password2'
     vtype: 'password'
@@ -34,7 +34,7 @@
     - password
 
 - name: "set organization name"
-  debconf:
+  ansible.builtin.debconf:
     name: 'slapd'
     question: 'shared/organization'
     vtype: 'string'
@@ -48,7 +48,7 @@
     - organization
 
 - name: "set domain name"
-  debconf:
+  ansible.builtin.debconf:
     name: 'slapd'
     question: 'slapd/domain'
     vtype: 'string'
@@ -62,20 +62,20 @@
     - organization
 
 - name: "packages"
-  package:
+  ansible.builtin.package:
     name: '{{ openldap_packages }}'
   tags:
     - openldap
     - packages
 
 - name: service_facts
-  service_facts:
+  ansible.builtin.service_facts:
   tags:
     - openldap
     - facts
 
 - name: "default configuration"
-  template:
+  ansible.builtin.template:
     src: 'etc_default_slapd.j2'
     dest: '/etc/default/slapd'
     mode: 0644
