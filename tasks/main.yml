@@ -68,7 +68,7 @@
     - openldap
     - packages
 
-- name: service_facts
+- name: Service_facts
   ansible.builtin.service_facts:
   tags:
     - openldap
