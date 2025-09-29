@@ -1,8 +1,8 @@
 ---
 # handlers file for openldap
-- name: "slapd restart"
+- name: Restart slapd
   ansible.builtin.systemd:
-    name: 'slapd'
+    name: slapd
     state: restarted
   when: "'slapd.service' in services"
   tags:

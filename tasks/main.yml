@@ -1,44 +1,44 @@
 ---
 # tasks file for openldap
-- name: "check if slapd exists"
+- name: Check slapd
   ansible.builtin.stat:
-    path: '/etc/default/slapd'
+    path: /etc/default/slapd
   register: slapd_exists
   changed_when: false
   tags:
     - openldap
     - check
 
-- name: "configure admin password"
+- name: Configure admin password
   ansible.builtin.debconf:
-    name: 'slapd'
+    name: slapd
     question: 'slapd/password1'
     vtype: 'password'
-    value: '{{ openldap_password }}'
+    value: "{{ openldap_password }}"
   when: not slapd_exists.stat.exists
   tags:
     - openldap
     - debconf
     - password
 
-- name: "confirm admin password"
+- name: Confirm admin password
   ansible.builtin.debconf:
     name: 'slapd'
     question: 'slapd/password2'
     vtype: 'password'
-    value: '{{ openldap_password }}'
+    value: "{{ openldap_password }}"
   when: not slapd_exists.stat.exists
   tags:
     - openldap
     - debconf
     - password
 
-- name: "set organization name"
+- name: Organization name
   ansible.builtin.debconf:
     name: 'slapd'
     question: 'shared/organization'
     vtype: 'string'
-    value: '{{ openldap_organization }}'
+    value: "{{ openldap_organization }}"
   when:
     - not slapd_exists.stat.exists
     - openldap_organization is defined
@@ -47,12 +47,12 @@
     - debconf
     - organization
 
-- name: "set domain name"
+- name: Domain name
   ansible.builtin.debconf:
     name: 'slapd'
     question: 'slapd/domain'
     vtype: 'string'
-    value: '{{ openldap_domain }}'
+    value: "{{ openldap_domain }}"
   when:
     - not slapd_exists.stat.exists
     - openldap_organization is defined
@@ -61,9 +61,9 @@
     - debconf
     - organization
 
-- name: "packages"
+- name: Packages
   ansible.builtin.package:
-    name: '{{ openldap_packages }}'
+    name: "{{ openldap_packages }}"
   tags:
     - openldap
     - packages
@@ -74,14 +74,14 @@
     - openldap
     - facts
 
-- name: "default configuration"
+- name: Default configuration
   ansible.builtin.template:
-    src: 'etc_default_slapd.j2'
-    dest: '/etc/default/slapd'
+    src: etc_default_slapd.j2
+    dest: /etc/default/slapd
     mode: 0644
   when: "'slapd.service' in services"
   notify:
-    - slapd restart
+    - Restart slapd
   tags:
     - openldap
     - defaults
