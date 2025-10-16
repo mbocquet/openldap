@@ -1,4 +1,4 @@
-# Ansible managed role: openldap, file: etc.default.slapd.j2
+# Ansible managed role: openldap, template: default_slapd.j2
 # Default location of the slapd.conf file or slapd.d cn=config directory. If
 # empty, use the compiled-in default (/etc/ldap/slapd.d with a fallback to
 # /etc/ldap/slapd.conf).
@@ -40,7 +40,7 @@ SLAPD_SENTINEL_FILE=/etc/ldap/noslapd
 # For Kerberos authentication (via SASL), slapd by default uses the system
 # keytab file (/etc/krb5.keytab).  To use a different keytab file,
 # uncomment this line and change the path.
-#export KRB5_KTNAME=/etc/krb5.keytab
+#KRB5_KTNAME=/etc/krb5.keytab
 
 # Additional options to pass to slapd
 SLAPD_OPTIONS=""
