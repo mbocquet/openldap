@@ -78,7 +78,7 @@
   ansible.builtin.template:
     src: default_slapd.j2
     dest: /etc/default/slapd
-    mode: 0644
+    mode: "0644"
   when: "'slapd.service' in services"
   notify:
     - Restart slapd
